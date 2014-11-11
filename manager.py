@@ -57,6 +57,9 @@ class EnvManager():
         for n in env_paths:
             self.envs.append(VirtualEnvironment(n))
 
+########################
+#Virtualenv api
+
 from os import linesep, environ
 import os.path
 import subprocess
@@ -323,7 +326,8 @@ class VirtualEnvironment(object):
         """List of all package names that are installed in this environment."""
         return [name.lower() for name, _ in self.installed_packages]
 
-
+#end virtualenv
+###################
 
 
 
