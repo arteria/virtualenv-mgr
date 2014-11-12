@@ -1,1 +1,1 @@
-virtualenv-api
+-e git+https://github.com/yannik-ammann/virtualenv-api.git@ff853e0efb7f5ec24cfab70971f95b9a5b629a8a#egg=virtualenv_api-master
