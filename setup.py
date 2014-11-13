@@ -14,5 +14,5 @@ setup(
     install_requires=open('requirements.txt').read().split('\n'),
     license="BSD",
     zip_safe=False,
-    scripts=['envmanager/emp.py'],
+    scripts=['envmanager/epm.py'],
 )
