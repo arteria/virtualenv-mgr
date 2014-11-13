@@ -4,8 +4,11 @@ from os import linesep
 class EnvManager():
     envs=[]
 
-    def __init__(self,file_name):
-        self.setEnvs(file_name)
+    def __init__(self,file_name=None,env_list=None):
+        if file_name:
+            self.setEnvs(file_name)
+        elif env_list:
+            self.setEnvs(env_list)
 
     def freezeList(self):
         freezes = []
