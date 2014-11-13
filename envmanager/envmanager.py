@@ -1,15 +1,11 @@
 from virtualenvapi.manage import VirtualEnvironment
-from os import linesep
+from os import linesep, environ
 
 class EnvManager():
     envs=[]
 
     def __init__(self,file_name=None,env_list=None):
-        if file_name:
-            self.setEnvs(file_name)
-        elif env_list:
-            for n in env_list:
-                self.setEnvs(n)
+        self.setEnvs(file_name,env_list)
 
     def freezeList(self):
         freezes = []
@@ -18,9 +14,13 @@ class EnvManager():
                 freezes.append(app)
         return freezes
 
-    def setEnvs(self, file_name):
-        f = open(file_name, 'r')
-        env_paths = f.read().split(linesep)
+    def setEnvs(self, file_name, env_list):
+        env_paths = []
+        if file_name:
+            f = open(file_name, 'r')
+            env_paths += f.read().split(linesep)
+        if env_list:
+            env_paths += env_list
         for n in env_paths:
             self.envs.append(VirtualEnvironment(n))
 
@@ -41,7 +41,7 @@ class EnvManager():
 
         for n in self.envs:
             if n.is_installed(find):
-                found.append([n])
+                found.append(n)
                 print '%s is installed in %s' % (find, n)
             else:
                 print '%s is not installed in %s' % (find, n)
@@ -55,8 +55,7 @@ class EnvManager():
 
     def up(self,current,up):
 
-        for n in self.envs:
-            if n.is_installed(current):
-                print 'is updating %s' % (n)
-                n.install(up)
-                print 'is done'
+        for n in self.finder(current):
+            print 'is updating %s' % (n)
+            n.install(up)
+            print 'is done'
