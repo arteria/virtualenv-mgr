@@ -1,2 +1,2 @@
--e git+https://github.com/yannik-ammann/virtualenv-api.git#egg=virtualenvapi
+git+https://github.com/yannik-ammann/virtualenv-api.git#egg=virtualenvapi
 
