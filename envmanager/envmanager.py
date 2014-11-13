@@ -8,7 +8,8 @@ class EnvManager():
         if file_name:
             self.setEnvs(file_name)
         elif env_list:
-            self.setEnvs(env_list)
+            for n in env_list:
+                self.setEnvs(n)
 
     def freezeList(self):
         freezes = []
