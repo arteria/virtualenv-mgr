@@ -11,6 +11,8 @@ parser = argparse.ArgumentParser()
 
 # parser.add_argument("filename", 
 #                      help="file with paths to envs")
+group = parser.add_mutually_exclusive_group()
+
 parser.add_argument('-e', '--environment', type=str,
                     help='path to file with paths to envs')
 parser.add_argument('-f', '--find', type=str,
@@ -19,9 +21,14 @@ parser.add_argument("-l", "--freezelist", action='store_true',
                     help="pints the freeze_ist of all envs")
 parser.add_argument("-i", "--install", type = str, 
                     help="installes an app, use commas to add more then one")
+parser.add_argument('-h', '--pip-histo', action='store_true',
+                    help='pip histogram')
+
+
+
 
 args = parser.parse_args()
-
+print args
 # print args.filename
 
 if args.environment:

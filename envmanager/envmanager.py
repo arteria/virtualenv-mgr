@@ -10,19 +10,39 @@ class EnvManager():
     def freezeList(self):
         freezes = []
         for n in self.envs:
-            for app in n.pip_freeze:
-                freezes.append(app)
+            try:
+                for app in n.pip_freeze:
+                    freezes.append(app)
+            except:
+                print '%s may have been moved, freezeList' % (n) 
+
         return freezes
 
     def setEnvs(self, file_name, env_list):
+        #self.envs = None
         env_paths = []
         if file_name:
             f = open(file_name, 'r')
-            env_paths += f.read().split(linesep)
+            env_paths = f.read().split(linesep)
         if env_list:
-            env_paths += env_list
+            env_paths = env_list
         for n in env_paths:
-            self.envs.append(VirtualEnvironment(n))
+            ve = VirtualEnvironment(n)
+            # try:
+            #     ve.pip_freeze
+            # except:
+            #     print 'failed %s' % n
+            #     continue
+            self.envs.append(ve)
+
+
+    def checkEnv(self):
+        for n in self.envs:
+            try:
+                n._execute('test')
+            except:
+                return False
+            return True
 
     def list_apps(self, file_name='apps.txt'):
         app_list=[]
@@ -40,22 +60,31 @@ class EnvManager():
         found = []
 
         for n in self.envs:
-            if n.is_installed(find):
-                found.append(n)
-                print '%s is installed in %s' % (find, n)
-            else:
-                print '%s is not installed in %s' % (find, n)
+            try:
+                if n.is_installed(find):
+                    found.append(n)
+                    print '%s is installed in %s' % (find, n)
+                else:
+                    print '%s is not installed in %s' % (find, n)
+            except:
+                print '%s may have been moved, finder function' % (n) 
         return found
 
     def install(self, app_name):
         for n in self.envs:
-            print 'is installing %s in %s' % (app_name,n)
-            n.install(app_name)
-            print 'done with: %s' % (n)
+            try:
+                print 'is installing %s in %s' % (app_name,n)
+                n.install(app_name)
+                print 'done with: %s' % (n)
+            except:
+                print '%s may have been moved, install function' % (n) 
 
     def up(self,current,up):
 
         for n in self.finder(current):
-            print 'is updating %s' % (n)
-            n.install(up)
-            print 'is done'
+            try:
+                print 'is updating %s' % (n)
+                n.install(up)
+                print 'is done'
+            except:
+                print '%s may have been moved, up function' % (n) 
