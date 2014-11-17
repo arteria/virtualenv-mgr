@@ -27,13 +27,9 @@ class EnvManager():
         if env_list:
             env_paths = env_list
         for n in env_paths:
-            ve = VirtualEnvironment(n)
-            # try:
-            #     ve.pip_freeze
-            # except:
-            #     print 'failed %s' % n
-            #     continue
-            self.envs.append(ve)
+            if n is not '' and '#' not in n:
+                ve = VirtualEnvironment(n)
+                self.envs.append(ve)
 
 
     def checkEnv(self):

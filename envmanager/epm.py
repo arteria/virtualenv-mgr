@@ -20,9 +20,9 @@ parser = argparse.ArgumentParser()
 ## ENVIRONMENT
 parser.add_argument('environment', nargs='?', type=str,
                     help='path to file with paths to envs')
-parser.add_argument('--envfreeze', action='store_true',
+parser.add_argument('-z', '--envfreeze', action='store_true',
                     help='prints all the envs on .')
-parser.add_argument('--searchpath', type=str,
+parser.add_argument('-s', '--searchroot', type=str,
                     help='path for envfreeze, where to search')
 
 ## ENVMANAGER
@@ -35,7 +35,7 @@ parser.add_argument("-i", "--install", type = str,
 ## PIP HISTO
 parser.add_argument('-p', '--piphisto', action='store_true',
                     help='pip histogram')
-parser.add_argument('-g', '--egg', action='store_true',
+parser.add_argument('-e', '--egg', action='store_true',
                     help='pip histogram takes eggs into consideration')
 parser.add_argument('-v', '--version', action='store_true',
                     help='pip histogram takes versions into consideration')
@@ -51,23 +51,14 @@ cm_input = sys.stdin
 
 if args.envfreeze:
     path = environ['PWD']
-    if args.searchpath:
-        path = args.searchpath
+    if args.searchroot:
+        path = args.searchroot
     find_popen = subprocess.Popen(['find', path, '-wholename', '*/bin/activate', '-prune'], stdout=subprocess.PIPE)
     subprocess.call(('sed', '-e', 's,/bin/activate,,g', '-e', 's,//,/,g'), stdin=find_popen.stdout)
     find_popen.wait()
     quit()
 
 
-# if args.envfreeze:
-#     path = environ['PWD']
-#     if args.searchpath:
-#         path = args.searchpath
-#     subprocess.call(['find', args.searchpath, '-wholename', '*/bin/activate', '-prune', '|', 'sed', '-e', 's,/bin/activate,,g'],shell)
-#     #subprocess.call(BASH_COMMAND.split())
-#     #print '------'
-#     #quit()
-#     #print '------!'
 
 
 
