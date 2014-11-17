@@ -29,12 +29,7 @@ class EnvManager():
         for n in env_paths:
             if n is not '' and '#' not in n:
                 ve = VirtualEnvironment(n)
-            # try:
-            #     ve.pip_freeze
-            # except:
-            #     print 'failed %s' % n
-            #     continue
-            self.envs.append(ve)
+                self.envs.append(ve)
 
 
     def checkEnv(self):
