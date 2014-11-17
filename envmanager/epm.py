@@ -20,9 +20,9 @@ parser = argparse.ArgumentParser()
 ## ENVIRONMENT
 parser.add_argument('environment', nargs='?', type=str,
                     help='path to file with paths to envs')
-parser.add_argument('--envfreeze', action='store_true',
+parser.add_argument('-z', '--envfreeze', action='store_true',
                     help='prints all the envs on .')
-parser.add_argument('--searchroot', type=str,
+parser.add_argument('-s', '--searchroot', type=str,
                     help='path for envfreeze, where to search')
 
 ## ENVMANAGER
@@ -35,7 +35,7 @@ parser.add_argument("-i", "--install", type = str,
 ## PIP HISTO
 parser.add_argument('-p', '--piphisto', action='store_true',
                     help='pip histogram')
-parser.add_argument('-g', '--egg', action='store_true',
+parser.add_argument('-e', '--egg', action='store_true',
                     help='pip histogram takes eggs into consideration')
 parser.add_argument('-v', '--version', action='store_true',
                     help='pip histogram takes versions into consideration')
