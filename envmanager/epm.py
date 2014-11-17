@@ -22,7 +22,7 @@ parser.add_argument('environment', nargs='?', type=str,
                     help='path to file with paths to envs')
 parser.add_argument('--envfreeze', action='store_true',
                     help='prints all the envs on .')
-parser.add_argument('--searchpath', type=str,
+parser.add_argument('--searchroot', type=str,
                     help='path for envfreeze, where to search')
 
 ## ENVMANAGER
@@ -51,23 +51,14 @@ cm_input = sys.stdin
 
 if args.envfreeze:
     path = environ['PWD']
-    if args.searchpath:
-        path = args.searchpath
+    if args.searchroot:
+        path = args.searchroot
     find_popen = subprocess.Popen(['find', path, '-wholename', '*/bin/activate', '-prune'], stdout=subprocess.PIPE)
     subprocess.call(('sed', '-e', 's,/bin/activate,,g', '-e', 's,//,/,g'), stdin=find_popen.stdout)
     find_popen.wait()
     quit()
 
 
-# if args.envfreeze:
-#     path = environ['PWD']
-#     if args.searchpath:
-#         path = args.searchpath
-#     subprocess.call(['find', args.searchpath, '-wholename', '*/bin/activate', '-prune', '|', 'sed', '-e', 's,/bin/activate,,g'],shell)
-#     #subprocess.call(BASH_COMMAND.split())
-#     #print '------'
-#     #quit()
-#     #print '------!'
 
 
 
