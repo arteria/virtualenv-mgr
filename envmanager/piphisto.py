@@ -49,9 +49,9 @@ class PipHisto():
         # Convert dic to list
         app_histo = [[k ,v] for k, v in apps.items()]
         # Sort list by name
-        app_histo = sorted(l, key = lambda x: x[0], reverse=False)
+        app_histo = sorted(app_histo, key = lambda x: x[0], reverse=False)
         # Sort list by number of installations
-        app_histo = sorted(s, key = lambda x: x[1], reverse=True)
+        app_histo = sorted(app_histo, key = lambda x: x[1], reverse=True)
 
         # for k, v in sorted(apps.items(), key=lambda kv: kv[1], reverse=True):
         #     app_histo.append([k, v])
