@@ -76,9 +76,13 @@ Help:
 
 *  -z, --envfreeze       prints all the envs on .
 *  -s [SEARCHROOT], --searchroot [SEARCHROOT]   path for envfreeze, where to search
+
+
 *  -f [FIND], --find [FIND]  find app, use commas to search for more then one
 *  -l, --freezelist      pints the freeze_ist of all envs
 *  -i [INSTALL], --install [INSTALL] installes an app, use commas to add more then one
+
+
 *  -p, --piphisto        pip histogram
 *  -e, --egg             pip histogram takes eggs into consideration
 *  -v, --version         pip histogram takes versions into consideration 
