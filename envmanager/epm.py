@@ -27,11 +27,14 @@ parser.add_argument('-s', '--searchroot', type=str,
 
 ## ENVMANAGER
 parser.add_argument('-f', '--find', type=str,
-                    help='find app, use commas to search for more then one')
+                    help='find app, use commas to search for more')
 parser.add_argument("-l", "--freezelist", action='store_true',
                     help="pints the freeze_ist of all envs")
 parser.add_argument("-i", "--install", type = str, 
-                    help="installes an app, use commas to add more then one")
+                    help="installes an app, use commas to add more")
+parser.add_argument('-u', '--uninstall', type = str,
+                    help='uninstalles an app, use commas to add more')
+
 ## PIP HISTO
 parser.add_argument('-p', '--piphisto', action='store_true',
                     help='pip histogram')
@@ -48,6 +51,8 @@ cm_input = sys.stdin
 
 #BASH_COMMAND = 'find /Users/yannik/ztemp -wholename "*/bin/activate" -prune | sed -e "s,/bin/activate,,g" | sed -e "s,//,/,g"'
 
+## ENVFREEZE ##
+###############
 
 if args.envfreeze:
     path = environ['PWD']
@@ -59,13 +64,8 @@ if args.envfreeze:
     quit()
 
 
-
-
-
-
-
-
-
+## Set ENVS ##
+##############
 
 if args.environment:
     env_list = file_name = None
@@ -90,37 +90,27 @@ else:
 
 
 
-
 ## ENVMANAGER CLI ##
 ####################
 
+
+find_env=False
 if args.find:
-    find = []
-    arg_input =  args.find
-    if ',' in arg_input:
-        find += arg_input.split(',')
-    else:
-        find = arg_input
+    find = args.find.split(',')
+    find_env = em.finder(find)
+    #print find_env
 
 if args.install:
-    install = []
-    arg_input =  args.install
-    if ',' in arg_input:
-        install += arg_input.split(',')
-    else:
-        install = arg_input
+    install = args.install.split(',')
+    em.install(install, envs=find_env)
 
+if args.uninstall:
+    uninstall = args.uninstall.split(',')
+    em.uninstall(uninstall, envs=find_env)
 
-
-if args.install and args.find:
-    em.up(find, install)
-elif args.install:
-    em.install(install)
-elif args.find:
-    em.finder(find)
 
 if args.freezelist:
-    for n in em.freezeList():
+    for n in em.freezeList(envs=find_env):
         print n
 
 
@@ -136,6 +126,6 @@ if args.piphisto:
         version = True
     if args.egg:
         egg = True
-    ph = PipHisto(em.freezeList())
+    ph = PipHisto(em.freezeList(envs=find_env))
     ph.print_pip_histo(version=version,egg=egg)
 

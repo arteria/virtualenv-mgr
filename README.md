@@ -1,6 +1,6 @@
 # envmanager
 
-tool to manage multiple virtualenv environments
+Tool to manage multiple virtualenv environments. Uses a file with the paths to multiple virtuale environments to manage all at the same time. You can install / deinstall packages and upgrade spesific ones. The tool can print out a statistic about the usage of packages over all environments.
 
 
 
@@ -25,70 +25,75 @@ Define a searchroot, where the scrip should search in:
 
     epm.py --envfreeze --searchroot /Users/name/workspace/2014
     epm.py -zs /Users/name/workspace/2014
+    
+Save the paths to a file which you can use later.
+
+    epm.py > example-env-file.txt
 
 ### Define Environments
+
+Environments from a list:
+
+    epm.py example-env-file.txt
+
+Or input over a pipe:
+
+    epm.py --envfreeze | epm.py
 
 No arguments --> active virtualenv
 
     epm.py
-
-Environments from a list:
-
-    epm.py example-environment-list.txt
-    
-Or input over a pipe:
-
-    epm.py --envfreeze | epm.py
     
 ### Actions
 
-Install a package / multiple packages:
+Install a package / multiple packages
 
-    epm.py -i django==1.4.16,djangotransmeta
+    epm.py example-env-file.txt -i django==1.4.16,djangotransmeta
     
+Uninstall a package / multiple packages
+    
+    epm.py example-env-file.txt -u django==1.4.16
+        
 Find packages / multiple packages
 
-    epm.py -f django==1.4.6
+    epm.py example-env-file.txt -f django==1.4.6
     
-Upgrade packages / install sertain packages in env where certain other packages are installed
+Install or Uninstall sertain packages in envs where certain other packages are installed.
 
-    epm.py -f django==1.4.6 -i django 1.4.16 django-transmeta
+    epm.py example-env-file.txt -f django==1.4.12 -i django==1.4.16 -u django-transmeta
+    
+All virtual-environments which have installed django==1.4.12 will install django==1.4.16 and uninstall django-transmeta.
     
 ### Pip Histo
 
-print the pip histo ( overview over all installed packages in the defined virtualenvs)
+print the pip histo ( overview over all installed packages)
 
-    epm.py -p
+    epm.py example-env-file.txt -p
     
-Option for differentiate versions
+Distinguishes between different versions
 
-    epm.py -p -v
+    epm.py example-env-file.txt -p -v
     
 Take eggs into the histo
 
-    epm.py -p -g
+    epm.py example-env-file.txt -p -e
     
 Combine
 
-    epm.py -pve
+    epm.py example-env-file.txt -pve
     
-Help:
+###Help:
 
-*  -z, --envfreeze       prints all the envs on .
-*  -s [SEARCHROOT], --searchroot [SEARCHROOT]   path for envfreeze, where to search
+Envfreeze:
+*  -z, --envfreeze,      prints all the envs on .
+*  -s SEARCHROOT, --searchroot SEARCHROOT, path for envfreeze, where to search
 
+Actions
+*  -f FIND, --find FIND  find app, use commas to search for more
+*  -i INSTALL, --install INSTALL installes an app, use commas to add more
+*  -u UNINSTALL, --uninstall UNINSTALL uninstalles an app, use commas to add more
 
-*  -f [FIND], --find [FIND]  find app, use commas to search for more then one
-*  -l, --freezelist      pints the freeze_ist of all envs
-*  -i [INSTALL], --install [INSTALL] installes an app, use commas to add more then one
-
-
-*  -p, --piphisto        pip histogram
-*  -e, --egg             pip histogram takes eggs into consideration
-*  -v, --version         pip histogram takes versions into consideration 
-    
-    
-    
-    
-    
-    
+Pip Histo
+*  -p, --piphisto,        pip histogram
+*  -e, --egg,             pip histogram takes eggs into consideration
+*  -v, --version,         pip histogram takes versions into consideration

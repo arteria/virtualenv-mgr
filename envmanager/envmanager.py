@@ -7,9 +7,12 @@ class EnvManager():
     def __init__(self,file_name=None,env_list=None):
         self.setEnvs(file_name,env_list)
 
-    def freezeList(self):
+    def freezeList(self, envs=False):
+        env_list = self.envs
+        if envs:
+            env_list = envs
         freezes = []
-        for n in self.envs:
+        for n in env_list:
             try:
                 for app in n.pip_freeze:
                     freezes.append(app)
@@ -52,30 +55,39 @@ class EnvManager():
         f.close()
 
 
-    def finder(self,find):
+    def finder(self, find, envs=False):
+        env_list = self.envs
+        if envs:
+            env_list=envs
+
         found = []
 
-        for n in self.envs:
+        for n in env_list:
             try:
                 if n.is_installed(find):
                     found.append(n)
-                    print '%s is installed in %s' % (find, n)
+                    print '%s installed in %s' % (find, n)
                 else:
-                    print '%s is not installed in %s' % (find, n)
+                    print '%s not installed in %s' % (find, n)
             except:
                 print '%s may have been moved, finder function' % (n) 
         return found
 
-    def install(self, app_name):
-        for n in self.envs:
+    def install(self, app_install, envs=False):
+        env_list = self.envs
+        if envs:
+            env_list = envs
+
+        for n in env_list:
             try:
-                print 'is installing %s in %s' % (app_name,n)
-                n.install(app_name)
+                print 'installing %s in %s' % (app_install,n)
+                n.install(app_install)
                 print 'done with: %s' % (n)
             except:
                 print '%s may have been moved, install function' % (n) 
 
-    def up(self,current,up):
+    """
+    def up(self, current, up):
 
         for n in self.finder(current):
             try:
@@ -83,4 +95,22 @@ class EnvManager():
                 n.install(up)
                 print 'is done'
             except:
-                print '%s may have been moved, up function' % (n) 
+                print '%s may have been moved, up function' % (n)
+    """
+
+    def uninstall(self, app_uninstall, envs=False):
+        env_list = self.envs
+        if envs:
+            env_list = envs
+
+        for n in env_list:
+            try:
+                print 'uninstalling %s in %s' % (app_uninstall, n)
+                n.uninstall(app_uninstall)
+                print 'done with: %s' % (n)
+            except:
+                print '%s may have been moved, uninstall function' % (n)
+
+
+
+
