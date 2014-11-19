@@ -1,11 +1,12 @@
 from virtualenvapi.manage import VirtualEnvironment
 from os import linesep, environ
 
-class EnvManager():
-    envs=[]
 
-    def __init__(self,file_name=None,env_list=None):
-        self.setEnvs(file_name,env_list)
+class EnvManager():
+    envs = []
+
+    def __init__(self, file_name=None, env_list=None):
+        self.setEnvs(file_name, env_list)
 
     def freezeList(self, envs=False):
         env_list = self.envs
@@ -17,7 +18,7 @@ class EnvManager():
                 for app in n.pip_freeze:
                     freezes.append(app)
             except:
-                print '%s may have been moved, freezeList' % (n) 
+                print '%s may have been moved, freezeList' % (n)
 
         return freezes
 
@@ -34,7 +35,6 @@ class EnvManager():
                 ve = VirtualEnvironment(n)
                 self.envs.append(ve)
 
-
     def checkEnv(self):
         for n in self.envs:
             try:
@@ -44,21 +44,20 @@ class EnvManager():
             return True
 
     def list_apps(self, file_name='apps.txt'):
-        app_list=[]
-        f = open(file_name , 'w+')
+        app_list = []
+        f = open(file_name, 'w+')
         for n in self.envs:
             for app in n.pip_freeze:
-                #app_list.append(app)
-                f.write(app+'\n')
-        #for n in app_list:
+                # app_list.append(app)
+                f.write(app + '\n')
+        # for n in app_list:
         #    f.write(n+'\n')
         f.close()
-
 
     def finder(self, find, envs=False):
         env_list = self.envs
         if envs:
-            env_list=envs
+            env_list = envs
 
         found = []
 
@@ -70,7 +69,7 @@ class EnvManager():
                 else:
                     print '%s not installed in %s' % (find, n)
             except:
-                print '%s may have been moved, finder function' % (n) 
+                print '%s may have been moved, finder function' % (n)
         return found
 
     def install(self, app_install, envs=False):
@@ -80,11 +79,11 @@ class EnvManager():
 
         for n in env_list:
             try:
-                print 'installing %s in %s' % (app_install,n)
+                print 'installing %s in %s' % (app_install, n)
                 n.install(app_install)
                 print 'done with: %s' % (n)
             except:
-                print '%s may have been moved, install function' % (n) 
+                print '%s may have been moved, install function' % (n)
 
     """
     def up(self, current, up):
@@ -110,7 +109,3 @@ class EnvManager():
                 print 'done with: %s' % (n)
             except:
                 print '%s may have been moved, uninstall function' % (n)
-
-
-
-

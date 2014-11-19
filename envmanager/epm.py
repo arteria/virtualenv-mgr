@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-# CLI #
-#######
+## CLI ##
+#########
 
 from envmanager.envmanager import EnvManager
 from envmanager.piphisto import PipHisto
@@ -14,10 +14,9 @@ from os import linesep
 
 parser = argparse.ArgumentParser()
 
-# parser.add_argument("filename", 
-#                      help="file with paths to envs")
 
-## ENVIRONMENT
+
+## ENVIRONMENT ##
 parser.add_argument('environment', nargs='?', type=str,
                     help='path to file with paths to envs')
 parser.add_argument('-z', '--envfreeze', action='store_true',
@@ -25,17 +24,17 @@ parser.add_argument('-z', '--envfreeze', action='store_true',
 parser.add_argument('-s', '--searchroot', type=str,
                     help='path for envfreeze, where to search')
 
-## ENVMANAGER
+## ENVMANAGER ##
 parser.add_argument('-f', '--find', type=str,
                     help='find app, use commas to search for more')
 parser.add_argument("-l", "--freezelist", action='store_true',
                     help="pints the freeze_ist of all envs")
-parser.add_argument("-i", "--install", type = str, 
+parser.add_argument("-i", "--install", type=str,
                     help="installes an app, use commas to add more")
-parser.add_argument('-u', '--uninstall', type = str,
+parser.add_argument('-u', '--uninstall', type=str,
                     help='uninstalles an app, use commas to add more')
 
-## PIP HISTO
+## PIP HISTO ##
 parser.add_argument('-p', '--piphisto', action='store_true',
                     help='pip histogram')
 parser.add_argument('-e', '--egg', action='store_true',
@@ -71,14 +70,14 @@ if args.environment:
     env_list = file_name = None
     # python p.py -p "`python p.py --envfreeze`"
     if '\n' in args.environment:
-        env_list = [n.replace('/bin/activate','') for n in args.environment.split(linesep)]
+        env_list = [n.replace('/bin/activate', '') for n in args.environment.split(linesep)]
     else:
         file_name = args.environment
-    em = EnvManager(file_name=file_name,env_list=env_list)
+    em = EnvManager(file_name=file_name, env_list=env_list)
 elif not sys.stdin.isatty():
     env_list = []
     for n in sys.stdin:
-        env_list.append(n.replace(linesep,''))
+        env_list.append(n.replace(linesep, ''))
     em = EnvManager(env_list=env_list)
 else:
     if os.environ.get('VIRTUAL_ENV'):
@@ -88,17 +87,15 @@ else:
         quit()
 
 
-
-
 ## ENVMANAGER CLI ##
 ####################
 
 
-find_env=False
+find_env = False
 if args.find:
     find = args.find.split(',')
     find_env = em.finder(find)
-    #print find_env
+    # print find_env
 
 if args.install:
     install = args.install.split(',')
@@ -114,10 +111,8 @@ if args.freezelist:
         print n
 
 
-
-
 ## PIPHISTO CLI ##
-################## 
+##################
 
 if args.piphisto:
     version = False
@@ -127,5 +122,4 @@ if args.piphisto:
     if args.egg:
         egg = True
     ph = PipHisto(em.freezeList(envs=find_env))
-    ph.print_pip_histo(version=version,egg=egg)
-
+    ph.print_pip_histo(version=version, egg=egg)

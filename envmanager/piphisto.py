@@ -1,5 +1,6 @@
 class PipHisto():
     apps_list = []
+
     def __init__(self, apps_list):
         self.setApps(apps_list)
 
@@ -29,8 +30,6 @@ class PipHisto():
         apps = {}
         app_histo = []
 
-
-
         for n in self.apps_list:
             if '#egg=' in n:
                 if egg:
@@ -45,23 +44,20 @@ class PipHisto():
                 apps[n] = apps[n] + 1
             else:
                 apps[n] = 1
-                
+
         # Convert dic to list
-        app_histo = [[k ,v] for k, v in apps.items()]
+        app_histo = [[k, v] for k, v in apps.items()]
         # Sort list by name
-        app_histo = sorted(app_histo, key = lambda x: x[0], reverse=False)
+        app_histo = sorted(app_histo, key=lambda x: x[0], reverse=False)
         # Sort list by number of installations
-        app_histo = sorted(app_histo, key = lambda x: x[1], reverse=True)
+        app_histo = sorted(app_histo, key=lambda x: x[1], reverse=True)
 
         # for k, v in sorted(apps.items(), key=lambda kv: kv[1], reverse=True):
         #     app_histo.append([k, v])
-        
-        
+
         # app_histo = l
 
         return app_histo
 
-
     def setApps(self, apps_list):
         self.apps_list = apps_list
- 
