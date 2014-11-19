@@ -83,7 +83,7 @@ else:
     if os.environ.get('VIRTUAL_ENV'):
         em = EnvManager(env_list=[os.environ['VIRTUAL_ENV']])
     else:
-        print 'no active virtualenv and no --environment input, no pipe input'
+        print('no active virtualenv and no --environment input, no pipe input')
         quit()
 
 
@@ -108,7 +108,7 @@ if args.uninstall:
 
 if args.freezelist:
     for n in em.freezeList(envs=find_env):
-        print n
+        print(n)
 
 
 ## PIPHISTO CLI ##

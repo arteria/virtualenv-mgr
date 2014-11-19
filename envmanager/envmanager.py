@@ -18,7 +18,7 @@ class EnvManager():
                 for app in n.pip_freeze:
                     freezes.append(app)
             except:
-                print '%s may have been moved, freezeList' % (n)
+                print('%s error, freezeList' % (n))
 
         return freezes
 
@@ -65,11 +65,11 @@ class EnvManager():
             try:
                 if n.is_installed(find):
                     found.append(n)
-                    print '%s installed in %s' % (find, n)
+                    print('%s installed in %s' % (find, n))
                 else:
-                    print '%s not installed in %s' % (find, n)
+                    print('%s not installed in %s' % (find, n))
             except:
-                print '%s may have been moved, finder function' % (n)
+                print('%s error, finder function' % (n))
         return found
 
     def install(self, app_install, envs=False):
@@ -79,11 +79,11 @@ class EnvManager():
 
         for n in env_list:
             try:
-                print 'installing %s in %s' % (app_install, n)
+                print('installing %s in %s' % (app_install, n))
                 n.install(app_install)
-                print 'done with: %s' % (n)
+                print('done with: %s' % (n))
             except:
-                print '%s may have been moved, install function' % (n)
+                print('%s error, install function' % (n))
 
     """
     def up(self, current, up):
@@ -104,8 +104,8 @@ class EnvManager():
 
         for n in env_list:
             try:
-                print 'uninstalling %s in %s' % (app_uninstall, n)
+                print('uninstalling %s in %s' % (app_uninstall, n))
                 n.uninstall(app_uninstall)
-                print 'done with: %s' % (n)
+                print('done with: %s' % (n))
             except:
-                print '%s may have been moved, uninstall function' % (n)
+                print('%s error, uninstall function' % (n))

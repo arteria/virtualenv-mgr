@@ -10,7 +10,7 @@ class PipHisto():
         header_string = ''
         if version:
             header_string = ' | version'
-        print ('   # | {0:<25} '.format('App-Name') + header_string)
+        print('   # | {0:<25} '.format('App-Name') + header_string)
         vers = ''
 
         for n in app_histo:
