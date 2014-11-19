@@ -1,4 +1,4 @@
-# envmanager
+# virtualenv-mgr
 
 Tool to manage multiple virtualenv environments. Uses a file with the paths to multiple virtuale environments to manage all at the same time. You can install / deinstall packages and upgrade spesific ones. The tool can print out a statistic about the usage of packages over all environments.
 
@@ -28,7 +28,7 @@ Define a searchroot, where the scrip should search in:
     
 Save the paths to a file which you can use later.
 
-    epm.py > example-env-file.txt
+    epm.py -zs /Users/name/workspace/2014 > example-env-file.txt
 
 ### Define Environments
 
