@@ -18,49 +18,49 @@ Install envmanager:
 
 Find all virtualenvs ar your current location / subdictionarys (look for the '/bin/activate' pattern)
 
-    epm.py --envfreeze
-    epm-py -z
+    virtualenv-mgr.py --envfreeze
+    virtualenv-mgr.py -z
     
 Define a searchroot, where the scrip should search in:
 
-    epm.py --envfreeze --searchroot /Users/name/workspace/2014
-    epm.py -zs /Users/name/workspace/2014
+    virtualenv-mgr.py --envfreeze --searchroot /Users/name/workspace/2014
+    virtualenv-mgr.py -zs /Users/name/workspace/2014
     
 Save the paths to a file which you can use later.
 
-    epm.py -zs /Users/name/workspace/2014 > example-env-file.txt
+    virtualenv-mgr.py -zs /Users/name/workspace/2014 > example-env-file.txt
 
 ### Define Environments
 
 Environments from a list:
 
-    epm.py example-env-file.txt
+    virtualenv-mgr.py example-env-file.txt
 
 Or input over a pipe:
 
-    epm.py --envfreeze | epm.py
+    virtualenv-mgr.py --envfreeze | virtualenv-mgr.py
 
 No arguments --> active virtualenv
 
-    epm.py
+    virtualenv-mgr.py
     
 ### Actions
 
 Install a package / multiple packages
 
-    epm.py example-env-file.txt -i django==1.4.16,djangotransmeta
+    virtualenv-mgr.py example-env-file.txt -i "django==1.4.16,djangotransmeta"
     
 Uninstall a package / multiple packages
     
-    epm.py example-env-file.txt -u django==1.4.16
+    virtualenv-mgr.py example-env-file.txt -u "django==1.4.16"
         
-Find packages / multiple packages
+Find packages / multiple packages (can look for exact packages '==' or if the package is installed)
 
-    epm.py example-env-file.txt -f django==1.4.6
+    virtualenv-mgr.py example-env-file.txt -f "django==1.4.6"
     
-Install or Uninstall sertain packages in envs where certain other packages are installed.
+Install or Uninstall packages in envs where certain other packages are installed.
 
-    epm.py example-env-file.txt -f django==1.4.12 -i django==1.4.16 -u django-transmeta
+    virtualenv-mgr.py example-env-file.txt -f "django==1.4.12" -i "django==1.4.16" -u "django-transmeta"
     
 All virtual-environments which have installed django==1.4.12 will install django==1.4.16 and uninstall django-transmeta.
     
@@ -68,19 +68,19 @@ All virtual-environments which have installed django==1.4.12 will install django
 
 print the pip histo ( overview over all installed packages)
 
-    epm.py example-env-file.txt -p
+    virtualenv-mgr.py example-env-file.txt -p
     
 Distinguishes between different versions
 
-    epm.py example-env-file.txt -p -v
+    virtualenv-mgr.py example-env-file.txt -p -v
     
 Take eggs into the histo
 
-    epm.py example-env-file.txt -p -e
+    virtualenv-mgr.py example-env-file.txt -p -e
     
 Combine
 
-    epm.py example-env-file.txt -pve
+    virtualenv-mgr.py example-env-file.txt -pve
     
 ###Help:
 

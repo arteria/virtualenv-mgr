@@ -1,0 +1,8 @@
+=======
+Credits
+=======
+
+Contributors
+------------
+
+- Yannik Ammann
