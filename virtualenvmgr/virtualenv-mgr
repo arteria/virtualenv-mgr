@@ -3,8 +3,8 @@
 ## CLI ##
 #########
 
-from envmanager.envmanager import EnvManager
-from envmanager.piphisto import PipHisto
+from virtualenvmgr.envmanager import EnvManager
+from virtualenvmgr.piphisto import PipHisto
 import argparse
 import os
 import subprocess
