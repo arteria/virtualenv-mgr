@@ -12,6 +12,7 @@ setup(
     long_description=open('README.md').read(),
     author='arteria',
     author_email='admin@arteria.ch',
+    url='https://github.com/arteria/virtualenv-mgr',
     packages=find_packages(),
     include_package_data=True,
     install_requires=open('requirements.txt').read().split('\n'),
