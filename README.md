@@ -1,16 +1,21 @@
 # virtualenv-mgr
 
-Tool to manage multiple virtualenv environments. Uses a file with the paths to multiple virtuale environments to manage all at the same time. You can install / deinstall packages and upgrade spesific ones. The tool can print out a statistic about the usage of packages over all environments.
+[virtualenv-mgr](https://github.com/arteria/virtualenv-mgr) is a tool to manage multiple [virtualenv](http://www.virtualenv.org/)s at once.
+
+Use a file with paths to the root of multiple virtualenvs to perform operations in all of them at the same time.
+
+## Features
+
+* Install, uninstall or upgrade specific packages in all virtualenvs at once.
+* Print statistic, a histogram, about the usage of packages over all environments. 
+* Find/list virtualenvs for further processing, eg. as input for virtualenv-mgr
+* Find all envs having a package installed
 
 
+## Installation 
 
-## Quickstart
-
-Install envmanager:
-
-    pip install git+https://github.com/arteria/virtualenv-mgr.git git+https://github.com/arteria/virtualenv-api.git
-    
-
+    pip install virtualenv-mgr
+     
 
 ## Usage
 
@@ -82,7 +87,7 @@ Combine
 
     virtualenv-mgr example-env-file.txt -pve
     
-###Help:
+## Help
 
 Envfreeze:
 *  -z, --envfreeze,      prints all the envs on .
