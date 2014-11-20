@@ -8,7 +8,7 @@ Tool to manage multiple virtualenv environments. Uses a file with the paths to m
 
 Install envmanager:
 
-    pip install git+https://github.com/yannik-ammann/Virtualenv-Manager.git git+https://github.com/arteria/virtualenv-api.git
+    pip install git+https://github.com/arteria/virtualenv-mgr.git git+https://github.com/arteria/ar-virtualenv-api.git
     
 
 
