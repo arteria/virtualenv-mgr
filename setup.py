@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from setuptools import find_packages, setup
-import envmanager
+import virtualenvmgr
 
-version = envmanager.__version__
+version = virtualenvmgr.__version__
 
 setup(
-    name='envmanager',
+    name='virtualenv-mgr',
     version=version,
     description="""Tool to manage your virtualenvs""",
     long_description=open('README.md').read(),
@@ -17,5 +17,5 @@ setup(
     install_requires=open('requirements.txt').read().split('\n'),
     license="BSD",
     zip_safe=False,
-    scripts=['envmanager/virtualenv-mgr.py'],
+    scripts=['virtualenvmgr/virtualenv-mgr'],
 )
