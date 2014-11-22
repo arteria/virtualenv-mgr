@@ -106,4 +106,5 @@ Pip Histo
 # Supported platforms 
 * OS X
 * Linux/UNIX
+
 Windows support was not tested yet. 
