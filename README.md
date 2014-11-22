@@ -102,3 +102,8 @@ Pip Histo
 *  -p, --piphisto,        pip histogram
 *  -e, --egg,             pip histogram takes eggs into consideration
 *  -v, --version,         pip histogram takes versions into consideration
+
+# Supported platforms 
+* OS X
+* Linux/UNIX
+Windows support was not tested yet. 
