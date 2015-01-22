@@ -15,7 +15,7 @@ Use a file with paths to the root of multiple virtualenvs to perform operations 
 ## Installation 
 
     pip install virtualenv-mgr
-     
+ 
 
 ## Usage
 
@@ -94,9 +94,7 @@ pipoption allows you to add options to the pip command, use the ',' to separate 
     virtualenv-mgr example-env-file.txt -i django==1.4.18 -o='--index-url=http://pypi.example.com/pypi,--extra-index-url=http://pypi.python.org/simple'
     
  
-## Help
-=======
-
+## Help 
  
 Envfreeze:
 *  -z, --envfreeze,      prints all the envs on .
@@ -112,19 +110,13 @@ Pip Histo
 *  -e, --egg,             pip histogram takes eggs into consideration
 *  -v, --version,         pip histogram takes versions into consideration
 
- 
-
- 
-
 Pip Option
-
 * -o, --pipoption,          allows you to add options to the pip command(-i/--install and -u/--uninstall) 
  
- 
- # Supported platforms 
- =======
- * OS X
- * Linux/UNIX
- 
- Windows support was not tested yet.  Please feel free to contribute.
+# Supported platforms 
+
+* OS X
+* Linux/UNIX
+
+Windows support was not tested yet.  Please feel free to contribute.
  
