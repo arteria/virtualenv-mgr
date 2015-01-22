@@ -82,9 +82,9 @@ Combine
 
     virtualenv-mgr example-env-file.txt -pve
 
-### Pip Optoin
+### Pip Option
 
-pipoption allows you to add optoins to the pip command, use the ',' to separate multiple commands
+pipoption allows you to add options to the pip command, use the ',' to separate multiple commands
 
     virtualenv-mgr example-env-file.txt -i django==1.4.18 -o='--index-url=http://pypi.example.com/pypi,--extra-index-url=http://pypi.python.org/simple'
     
