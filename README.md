@@ -86,9 +86,18 @@ Take eggs into the histo
 Combine
 
     virtualenv-mgr example-env-file.txt -pve
-    
-## Help
 
+### Pip Option
+
+pipoption allows you to add options to the pip command, use the ',' to separate multiple commands
+
+    virtualenv-mgr example-env-file.txt -i django==1.4.18 -o='--index-url=http://pypi.example.com/pypi,--extra-index-url=http://pypi.python.org/simple'
+    
+ 
+## Help
+=======
+
+ 
 Envfreeze:
 *  -z, --envfreeze,      prints all the envs on .
 *  -s SEARCHROOT, --searchroot SEARCHROOT, path for envfreeze, where to search
@@ -103,8 +112,19 @@ Pip Histo
 *  -e, --egg,             pip histogram takes eggs into consideration
 *  -v, --version,         pip histogram takes versions into consideration
 
-# Supported platforms 
-* OS X
-* Linux/UNIX
+ 
 
-Windows support was not tested yet. 
+ 
+
+Pip Option
+
+* -o, --pipoption,          allows you to add options to the pip command(-i/--install and -u/--uninstall) 
+ 
+ 
+ # Supported platforms 
+ =======
+ * OS X
+ * Linux/UNIX
+ 
+ Windows support was not tested yet.  Please feel free to contribute.
+ 

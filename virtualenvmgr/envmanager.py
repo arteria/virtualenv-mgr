@@ -72,7 +72,7 @@ class EnvManager():
                 print('%s error, finder function' % (n))
         return found
 
-    def install(self, app_install, envs=False):
+    def install(self, app_install, envs=False, pipoption=[]):
         env_list = self.envs
         if envs:
             env_list = envs
@@ -80,7 +80,7 @@ class EnvManager():
         for n in env_list:
             try:
                 print('installing %s in %s' % (app_install, n))
-                n.install(app_install)
+                n.install(app_install, options=pipoption)
                 print('done with: %s' % (n))
             except:
                 print('%s error, install function' % (n))
@@ -97,7 +97,7 @@ class EnvManager():
                 print '%s may have been moved, up function' % (n)
     """
 
-    def uninstall(self, app_uninstall, envs=False):
+    def uninstall(self, app_uninstall, envs=False, pipoption=[]):
         env_list = self.envs
         if envs:
             env_list = envs
@@ -105,7 +105,7 @@ class EnvManager():
         for n in env_list:
             try:
                 print('uninstalling %s in %s' % (app_uninstall, n))
-                n.uninstall(app_uninstall)
+                n.uninstall(app_uninstall, options=pipoption)
                 print('done with: %s' % (n))
             except:
                 print('%s error, uninstall function' % (n))
