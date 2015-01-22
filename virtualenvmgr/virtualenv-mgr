@@ -42,6 +42,11 @@ parser.add_argument('-e', '--egg', action='store_true',
 parser.add_argument('-v', '--version', action='store_true',
                     help='pip histogram takes versions into consideration')
 
+## PIP OPTION ##
+
+parser.add_argument('-o','--pipoption', type=str,
+                    help='allows you to add options to the pip command(-i/--install and -u/--uninstall)')
+
 
 args = ()
 args = parser.parse_args()
@@ -90,6 +95,12 @@ else:
 ## ENVMANAGER CLI ##
 ####################
 
+pipoption = []
+
+if args.pipoption:
+    pipoption = args.pipoption.split(',')
+
+#sys.exit()
 
 find_env = False
 if args.find:
@@ -99,11 +110,11 @@ if args.find:
 
 if args.install:
     install = args.install.split(',')
-    em.install(install, envs=find_env)
+    em.install(install, envs=find_env, pipoption=pipoption)
 
 if args.uninstall:
     uninstall = args.uninstall.split(',')
-    em.uninstall(uninstall, envs=find_env)
+    em.uninstall(uninstall, envs=find_env, pipoption=pipoption)
 
 
 if args.freezelist:
