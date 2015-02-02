@@ -48,6 +48,13 @@ parser.add_argument('-o','--pipoption', type=str,
                     help='allows you to add options to the pip command(-i/--install and -u/--uninstall)')
 
 
+## COMPARE ENVS ##
+
+parser.add_argument('-d','--diff', action='store_true',
+                    help='commpares the packages installed in envs')
+
+
+
 args = ()
 args = parser.parse_args()
 
@@ -95,12 +102,11 @@ else:
 ## ENVMANAGER CLI ##
 ####################
 
+# Set pip option for install & uninstall #
 pipoption = []
-
 if args.pipoption:
     pipoption = args.pipoption.split(',')
 
-#sys.exit()
 
 find_env = False
 if args.find:
@@ -134,3 +140,9 @@ if args.piphisto:
         egg = True
     ph = PipHisto(em.freezeList(envs=find_env))
     ph.print_pip_histo(version=version, egg=egg)
+
+
+## DIFF ##
+
+if args.diff:
+    em.pipDiff()

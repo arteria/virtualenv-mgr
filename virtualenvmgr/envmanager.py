@@ -109,3 +109,60 @@ class EnvManager():
                 print('done with: %s' % (n))
             except:
                 print('%s error, uninstall function' % (n))
+
+
+
+    def pipDiff(self):
+        diff_dic = {}
+        path_list = []
+        for env in self.envs:
+            diff_dic[env.path] = {}
+            path_list.append(env.path)
+
+            for app in env.pip_freeze:
+                app = app.split('==')
+                diff_dic[env.path][app[0]] = app[1]
+                #diff_dic[n.path].append(app)
+
+            #diff_dic[env.path] = sorted(diff_dic[env.path])
+
+        path_list.sort()
+        app_list = []
+
+        for paths in diff_dic.values():
+            for app in paths.keys():
+                if app not in app_list:
+                    app_list.append(app)
+
+
+
+
+        app_list.sort()
+
+        rows = []
+        header = ['apps \\ envs'] + path_list 
+
+        for app in app_list:
+            row = [app]
+            for path in path_list:
+                #print path
+                #print app
+                row.append(diff_dic[path].get(app,'X'))
+
+            rows.append(row)
+
+
+
+        s = '\n'.join(
+            [
+                '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
+                '|'.join(['{:=>24}'.format('') for n in header]),
+            ] +
+            ['|'.join(['{:>24}'.format(n[-24:]) for n in row]) for row in rows]
+        )
+
+        #print '\n'.join(['\t'.join(n) for n in rows])
+        print s
+
+
+
