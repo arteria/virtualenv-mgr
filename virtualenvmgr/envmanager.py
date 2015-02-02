@@ -112,7 +112,7 @@ class EnvManager():
 
 
 
-    def pipDiff(self):
+    def pipDiff(self, notinstalled=False, versiondiff=False):
         diff_dic = {}
         path_list = []
         for env in self.envs:
@@ -147,22 +147,75 @@ class EnvManager():
             for path in path_list:
                 #print path
                 #print app
-                row.append(diff_dic[path].get(app,'X'))
+                row.append(diff_dic[path].get(app ,'Not installed'))
 
             rows.append(row)
 
 
 
-        s = '\n'.join(
-            [
+        
+        diff = []
+
+        header.append('List differences')
+
+        for row in rows:
+            vers = row[1:]
+            vers.sort()
+            if vers[0] == vers[-1]:
+                diff.append('')
+            else:
+                diff.append('{} - {}'.format(vers[0],vers[-1]))
+
+        if not len(rows) == len(diff):
+            print rows
+            print diff
+
+        for index, row in enumerate(rows):
+            row.append(diff[index])
+
+
+        pretty_header = [
+            '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
+            '|'.join(['{:=>24}'.format('') for n in header]),
+        ] 
+
+        rows_q = []
+        if notinstalled and versiondiff:
+            for row in rows:
+                if 'Not installed' in row[-1] or row[-1] is not '':
+                    rows_q.append(row)
+        elif notinstalled:
+            for row in rows:
+                if 'Not installed' in row[-1]:
+                    rows_q.append(row)
+        elif versiondiff:
+            for row in rows:
+                if row[-1] is not '' and 'Not installed' not in row[-1]:
+                    rows_q.append(row)
+        else:
+            rows_q = rows
+
+        pretty_body = [
+            '|'.join(['{:>24}'.format(n[-24:]) for n in row])+ '\n' +
+            '|'.join(['{:->24}'.format('') for n in header]) for row in rows_q
+        ]
+
+
+        prettyprint = '\n'.join(pretty_header + pretty_body)
+        print prettyprint
+
+        prettyprint_rows =  [
                 '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
                 '|'.join(['{:=>24}'.format('') for n in header]),
-            ] +
-            ['|'.join(['{:>24}'.format(n[-24:]) for n in row]) for row in rows]
-        )
+                #'|'.join(['{:>24}'.format('') for n in header]),
+            ]+ ['|'.join(['{:>24}'.format(n[-24:]) for n in row])+ '\n' +
+                '|'.join(['{:->24}'.format('') for n in header]) for row in rows]
+        prettyprint = s = '\n'.join(prettyprint_rows)
+
+
 
         #print '\n'.join(['\t'.join(n) for n in rows])
-        print s
+        #print prettyprint
 
 
 
