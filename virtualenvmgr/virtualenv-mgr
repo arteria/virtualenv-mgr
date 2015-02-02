@@ -156,5 +156,32 @@ if args.diff or args.notinstalled or args.versiondiff:
         notinstalled = True
     if args.versiondiff:
         versiondiff = True
-    em.pipDiff(notinstalled=notinstalled, versiondiff=versiondiff)
+    diff = em.pipDiff(notinstalled=notinstalled, versiondiff=versiondiff)
+
+    if diff:
+        head = diff['head']
+        body = diff['body']
+        pretty_head = [
+            '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
+            '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in head]) + '|',
+            '+' + '+'.join(['{:=>24}'.format('') for n in head]) + '+',
+        ]
+        pretty_body = []
+        for row in body:
+            pretty_body.append(
+                '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in row]) + '|',
+            )
+            pretty_body.append(
+                '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
+            )
+
+        prettytable = '\n'.join(
+            pretty_head + pretty_body
+        )
+
+        print(prettytable)
+
+
+    else:
+        print 'some error in diff'
 

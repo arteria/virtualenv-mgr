@@ -140,7 +140,7 @@ class EnvManager():
         app_list.sort()
 
         rows = []
-        header = ['apps \\ envs'] + path_list 
+        head = ['apps \\ envs'] + path_list 
 
         for app in app_list:
             row = [app]
@@ -156,7 +156,7 @@ class EnvManager():
         
         diff = []
 
-        header.append('List differences')
+        head.append('List differences')
 
         for row in rows:
             vers = row[1:]
@@ -174,35 +174,38 @@ class EnvManager():
             row.append(diff[index])
 
 
-        pretty_header = [
-            '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
-            '|'.join(['{:=>24}'.format('') for n in header]),
-        ] 
+        #pretty_header = [
+        #    '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
+        #    '|'.join(['{:=>24}'.format('') for n in header]),
+        #] 
 
-        rows_q = []
+        body = []
         if notinstalled and versiondiff:
             for row in rows:
                 if 'Not installed' in row[-1] or row[-1] is not '':
-                    rows_q.append(row)
+                    body.append(row)
         elif notinstalled:
             for row in rows:
                 if 'Not installed' in row[-1]:
-                    rows_q.append(row)
+                    body.append(row)
         elif versiondiff:
             for row in rows:
                 if row[-1] is not '' and 'Not installed' not in row[-1]:
-                    rows_q.append(row)
+                    body.append(row)
         else:
-            rows_q = rows
+            body = rows
 
-        pretty_body = [
-            '|'.join(['{:>24}'.format(n[-24:]) for n in row])+ '\n' +
-            '|'.join(['{:->24}'.format('') for n in header]) for row in rows_q
-        ]
+        #pretty_body = [
+        #    '|'.join(['{:>24}'.format(n[-24:]) for n in row])+ '\n' +
+        #    '|'.join(['{:->24}'.format('') for n in header]) for row in rows_q
+        #]
 
 
-        prettyprint = '\n'.join(pretty_header + pretty_body)
-        print prettyprint
+        #prettyprint = '\n'.join(
+        #    ['|'+n+'|' for n in pretty_header] +
+        #    ['|'+n+'|' for n in pretty_body]
+        #)
+        return {'head':head,'body':body}
 
         prettyprint_rows =  [
                 '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
