@@ -149,6 +149,31 @@ if args.piphisto or args.version or args.egg:
 
 ## DIFF ##
 
+def pptable(table, table=False):
+    head = table['head']
+    body = table['body']
+
+    pretty_head = [
+            '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
+            '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in head]) + '|',
+            '+' + '+'.join(['{:=>24}'.format('') for n in head]) + '+',
+    ]
+    pretty_body = []
+    for row in body:
+        pretty_body.append(
+            '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in row]) + '|',
+        )
+        pretty_body.append(
+            '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
+        )
+
+    prettytable = '\n'.join(
+        pretty_head + pretty_body
+    )
+
+    print(prettytable)
+
+
 if args.diff or args.notinstalled or args.versiondiff:
     notinstalled = False
     versiondiff = False
@@ -157,7 +182,8 @@ if args.diff or args.notinstalled or args.versiondiff:
     if args.versiondiff:
         versiondiff = True
     diff = em.pipDiff(notinstalled=notinstalled, versiondiff=versiondiff)
-
+    pptable(diff)
+    """
     if diff:
         head = diff['head']
         body = diff['body']
@@ -184,4 +210,11 @@ if args.diff or args.notinstalled or args.versiondiff:
 
     else:
         print 'some error in diff'
+    """
+
+
+
+
+
+
 
