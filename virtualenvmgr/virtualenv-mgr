@@ -36,14 +36,6 @@ parser.add_argument("-i", "--install", type=str,
 parser.add_argument('-u', '--uninstall', type=str,
                     help='uninstalles an app, use commas to add more')
 
-## PIP HISTO ##
-parser.add_argument('-p', '--piphisto', action='store_true',
-                    help='pip histogram')
-parser.add_argument('-e', '--egg', action='store_true',
-                    help='pip histogram takes eggs into consideration')
-parser.add_argument('-v', '--version', action='store_true',
-                    help='pip histogram takes versions into consideration')
-
 ## PIP OPTION ##
 
 parser.add_argument('-o','--pipoption', type=str,
@@ -59,6 +51,15 @@ parser.add_argument('-n','--notinstalled', action='store_true',
                     help='lists apps that are not installed on all envs')
 parser.add_argument('-a','--versiondiff', action='store_true',
                     help='lists apps that dont have the same version number on all envs')
+
+
+## PIP HISTO ##
+parser.add_argument('-p', '--piphisto', action='store_true',
+                    help='pip histogram')
+parser.add_argument('-e', '--egg', action='store_true',
+                    help='pip histogram takes eggs into consideration')
+parser.add_argument('-v', '--version', action='store_true',
+                    help='pip histogram takes versions into consideration')
 
 
 ## Style ##

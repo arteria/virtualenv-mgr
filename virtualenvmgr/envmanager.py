@@ -85,18 +85,6 @@ class EnvManager():
             except:
                 print('%s error, install function' % (n))
 
-    """
-    def up(self, current, up):
-
-        for n in self.finder(current):
-            try:
-                print 'is updating %s' % (n)
-                n.install(up)
-                print 'is done'
-            except:
-                print '%s may have been moved, up function' % (n)
-    """
-
     def uninstall(self, app_uninstall, envs=False, pipoption=[]):
         env_list = self.envs
         if envs:
@@ -110,11 +98,15 @@ class EnvManager():
             except:
                 print('%s error, uninstall function' % (n))
 
-
-
     def pipDiff(self, notinstalled=False, versiondiff=False):
-        diff_dic = {}
+        
+        # app_list and path_list --> table grid
+        app_list = []
         path_list = []
+
+        # create diff_dic : dictionary with all apps for every env inside
+        diff_dic = {}
+
         for env in self.envs:
             diff_dic[env.path] = {}
             path_list.append(env.path)
@@ -122,41 +114,31 @@ class EnvManager():
             for app in env.pip_freeze:
                 app = app.split('==')
                 diff_dic[env.path][app[0]] = app[1]
-                #diff_dic[n.path].append(app)
-
-            #diff_dic[env.path] = sorted(diff_dic[env.path])
 
         path_list.sort()
-        app_list = []
+
 
         for paths in diff_dic.values():
             for app in paths.keys():
                 if app not in app_list:
                     app_list.append(app)
 
-
-
-
         app_list.sort()
 
-        rows = []
         head = ['apps \\ envs'] + path_list 
+        # every row displays a app : its mached to all envs
+        rows = []
 
         for app in app_list:
             row = [app]
             for path in path_list:
-                #print path
-                #print app
                 row.append(diff_dic[path].get(app ,'Not installed'))
-
             rows.append(row)
 
-
-
-        
-        diff = []
-
         head.append('List differences')
+
+        # check the differences of the installed apps
+        diff = []
 
         for row in rows:
             vers = row[1:]
@@ -166,19 +148,10 @@ class EnvManager():
             else:
                 diff.append('{} - {}'.format(vers[0],vers[-1]))
 
-        if not len(rows) == len(diff):
-            print rows
-            print diff
-
         for index, row in enumerate(rows):
             row.append(diff[index])
 
-
-        #pretty_header = [
-        #    '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
-        #    '|'.join(['{:=>24}'.format('') for n in header]),
-        #] 
-
+        # fill the last column of the table with the differences
         body = []
         if notinstalled and versiondiff:
             for row in rows:
@@ -195,30 +168,7 @@ class EnvManager():
         else:
             body = rows
 
-        #pretty_body = [
-        #    '|'.join(['{:>24}'.format(n[-24:]) for n in row])+ '\n' +
-        #    '|'.join(['{:->24}'.format('') for n in header]) for row in rows_q
-        #]
-
-
-        #prettyprint = '\n'.join(
-        #    ['|'+n+'|' for n in pretty_header] +
-        #    ['|'+n+'|' for n in pretty_body]
-        #)
         return {'head':head,'body':body}
-
-        prettyprint_rows =  [
-                '|'.join(['{:>24}'.format(n[-24:]) for n in header]),
-                '|'.join(['{:=>24}'.format('') for n in header]),
-                #'|'.join(['{:>24}'.format('') for n in header]),
-            ]+ ['|'.join(['{:>24}'.format(n[-24:]) for n in row])+ '\n' +
-                '|'.join(['{:->24}'.format('') for n in header]) for row in rows]
-        prettyprint = s = '\n'.join(prettyprint_rows)
-
-
-
-        #print '\n'.join(['\t'.join(n) for n in rows])
-        #print prettyprint
 
 
 
