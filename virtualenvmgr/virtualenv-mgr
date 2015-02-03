@@ -12,6 +12,8 @@ import sys
 from os import environ
 from os import linesep
 
+from virtualenvmgr.utils import pptable
+
 parser = argparse.ArgumentParser()
 
 
@@ -59,6 +61,10 @@ parser.add_argument('-a','--versiondiff', action='store_true',
                     help='lists apps that dont have the same version number on all envs')
 
 
+## Style ##
+
+parser.add_argument('-y','--style', action='store_true',)
+                    #help='adds style')
 
 args = ()
 args = parser.parse_args()
@@ -66,30 +72,6 @@ args = parser.parse_args()
 cm_input = sys.stdin
 
 #BASH_COMMAND = 'find /Users/yannik/ztemp -wholename "*/bin/activate" -prune | sed -e "s,/bin/activate,,g" | sed -e "s,//,/,g"'
-
-# UTILS #
-
-def pptable(table, table=False):
-    head = table['head']
-    body = table['body']
-    pretty_head = [
-            '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
-            '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in head]) + '|',
-            '+' + '+'.join(['{:=>24}'.format('') for n in head]) + '+',
-    ]
-    pretty_body = []
-    for row in body:
-        pretty_body.append(
-            '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in row]) + '|',
-        )
-        pretty_body.append(
-            '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
-        )
-    prettytable = '\n'.join(
-        pretty_head + pretty_body
-    )
-    print(prettytable)
-
 
 
 ## ENVFREEZE ##
@@ -169,7 +151,11 @@ if args.piphisto or args.version or args.egg:
     if args.egg:
         egg = True
     ph = PipHisto(em.freezeList(envs=find_env))
-    ph.print_pip_histo(version=version, egg=egg)
+    table = {'head': ['App', 'Installations'], 'body': ph.pip_histo(version=version,egg=egg)}
+    if args.style:
+        pptable(table)
+    else:
+        ph.print_pip_histo(version=version, egg=egg)
 
 
 ## DIFF ##
@@ -183,34 +169,6 @@ if args.diff or args.notinstalled or args.versiondiff:
         versiondiff = True
     diff = em.pipDiff(notinstalled=notinstalled, versiondiff=versiondiff)
     pptable(diff)
-    """
-    if diff:
-        head = diff['head']
-        body = diff['body']
-        pretty_head = [
-            '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
-            '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in head]) + '|',
-            '+' + '+'.join(['{:=>24}'.format('') for n in head]) + '+',
-        ]
-        pretty_body = []
-        for row in body:
-            pretty_body.append(
-                '|' + '|'.join(['{:>24}'.format(n[-24:]) for n in row]) + '|',
-            )
-            pretty_body.append(
-                '+' + '+'.join(['{:->24}'.format('') for n in head]) + '+',
-            )
-
-        prettytable = '\n'.join(
-            pretty_head + pretty_body
-        )
-
-        print(prettytable)
-
-
-    else:
-        print 'some error in diff'
-    """
 
 
 
