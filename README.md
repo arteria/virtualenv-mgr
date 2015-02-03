@@ -68,50 +68,76 @@ Install or Uninstall packages in envs where certain other packages are installed
     virtualenv-mgr example-env-file.txt -f "django==1.4.12" -i "django==1.4.16" -u "django-transmeta"
     
 All virtual-environments which have installed django==1.4.12 will install django==1.4.16 and uninstall django-transmeta.
+
+#### Pip Option
+
+pipoption allows you to add options to the pip commands ( install / uninstall ) , use the ',' to separate multiple commands
+
+    virtualenv-mgr example-env-file.txt -i django==1.4.18 -o='--index-url=http://pypi.example.com/pypi,--extra-index-url=http://pypi.python.org/simple'
+
+
+### Env Diff
+
+You can print table that displays the differences of the installed packages in multiple virtualenvs (-d, --diff)
+
+    virtualenv-mgr compare-envs.txt -d
     
+Filter: Apps that are not installed on all virtualenvs (-n, --notinstalled, -dn)
+
+    virtualenv-mgr compare-envs.txt -n
+    
+Filter: Apps that dont have the same version in all virtualenvs (-a, -versiondiff, -da)
+
+    virtualenv-mgr compare-envs.txt -a
+    
+Combine (-an , -dna)
+
+    virtualenv-mgr compare-envs.txt -na
+
+
 ### Pip Histo
 
-print the pip histo ( overview over all installed packages)
+print the pip histo (overview over all installed packages) (-p,--piphisto)
 
     virtualenv-mgr example-env-file.txt -p
     
-Distinguishes between different versions
+Distinguishes between different versions (-v,-version ; -pv)
 
-    virtualenv-mgr example-env-file.txt -p -v
+    virtualenv-mgr example-env-file.txt -v
     
-Take eggs into the histo
+Take eggs into the histo (-e,-egg ; -pe)
 
-    virtualenv-mgr example-env-file.txt -p -e
+    virtualenv-mgr example-env-file.txt -e
     
-Combine
+Combine (-ve, -pve)
 
-    virtualenv-mgr example-env-file.txt -pve
-
-### Pip Option
-
-pipoption allows you to add options to the pip command, use the ',' to separate multiple commands
-
-    virtualenv-mgr example-env-file.txt -i django==1.4.18 -o='--index-url=http://pypi.example.com/pypi,--extra-index-url=http://pypi.python.org/simple'
+    virtualenv-mgr example-env-file.txt -ve
     
  
 ## Help 
  
 Envfreeze:
-*  -z, --envfreeze,      prints all the envs on .
-*  -s SEARCHROOT, --searchroot SEARCHROOT, path for envfreeze, where to search
+*  `-z, --envfreeze`      prints all the envs on .
+*  `-s SEARCHROOT, --searchroot SEARCHROOT` path for envfreeze, where to search
 
 Actions
-*  -f FIND, --find FIND  find app, use commas to search for more
-*  -i INSTALL, --install INSTALL installes an app, use commas to add more
-*  -u UNINSTALL, --uninstall UNINSTALL uninstalles an app, use commas to add more
-
-Pip Histo
-*  -p, --piphisto,        pip histogram
-*  -e, --egg,             pip histogram takes eggs into consideration
-*  -v, --version,         pip histogram takes versions into consideration
+*  `-f FIND, --find FIND`  find app, use commas to search for more
+*  `-i INSTALL, --install INSTALL` installes an app, use commas to add more
+*  `-u UNINSTALL, --uninstall UNINSTALL` uninstalles an app, use commas to add more
 
 Pip Option
-* -o, --pipoption,          allows you to add options to the pip command(-i/--install and -u/--uninstall) 
+* `-o, --pipoption`          allows you to add options to the pip command(-i/--install and -u/--uninstall) 
+
+Env Diff
+* `-d, --diff`           commpares the packages installed in envs
+* `-n, --notinstalled`   lists apps that are not installed on all envs
+* `-a, --versiondiff`    lists apps that dont have the same version number on all envs
+
+Pip Histo
+*  `-p, --piphisto`        pip histogram
+*  `-e, --egg `            pip histogram takes eggs into consideration
+*  `-v, --version`        pip histogram takes versions into consideration
+
  
 # Supported platforms 
 

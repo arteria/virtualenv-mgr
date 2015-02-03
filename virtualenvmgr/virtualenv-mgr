@@ -12,6 +12,8 @@ import sys
 from os import environ
 from os import linesep
 
+from virtualenvmgr.utils import pptable
+
 parser = argparse.ArgumentParser()
 
 
@@ -34,6 +36,23 @@ parser.add_argument("-i", "--install", type=str,
 parser.add_argument('-u', '--uninstall', type=str,
                     help='uninstalles an app, use commas to add more')
 
+## PIP OPTION ##
+
+parser.add_argument('-o','--pipoption', type=str,
+                    help='allows you to add options to the pip command(-i/--install and -u/--uninstall)')
+
+
+
+## COMPARE ENVS ##
+
+parser.add_argument('-d','--diff', action='store_true',
+                    help='commpares the packages installed in envs')
+parser.add_argument('-n','--notinstalled', action='store_true',
+                    help='lists apps that are not installed on all envs')
+parser.add_argument('-a','--versiondiff', action='store_true',
+                    help='lists apps that dont have the same version number on all envs')
+
+
 ## PIP HISTO ##
 parser.add_argument('-p', '--piphisto', action='store_true',
                     help='pip histogram')
@@ -42,11 +61,11 @@ parser.add_argument('-e', '--egg', action='store_true',
 parser.add_argument('-v', '--version', action='store_true',
                     help='pip histogram takes versions into consideration')
 
-## PIP OPTION ##
 
-parser.add_argument('-o','--pipoption', type=str,
-                    help='allows you to add options to the pip command(-i/--install and -u/--uninstall)')
+## Style ##
 
+parser.add_argument('-y','--style', action='store_true',)
+                    #help='adds style')
 
 args = ()
 args = parser.parse_args()
@@ -54,6 +73,7 @@ args = parser.parse_args()
 cm_input = sys.stdin
 
 #BASH_COMMAND = 'find /Users/yannik/ztemp -wholename "*/bin/activate" -prune | sed -e "s,/bin/activate,,g" | sed -e "s,//,/,g"'
+
 
 ## ENVFREEZE ##
 ###############
@@ -95,12 +115,11 @@ else:
 ## ENVMANAGER CLI ##
 ####################
 
+# Set pip option for install & uninstall #
 pipoption = []
-
 if args.pipoption:
     pipoption = args.pipoption.split(',')
 
-#sys.exit()
 
 find_env = False
 if args.find:
@@ -125,7 +144,7 @@ if args.freezelist:
 ## PIPHISTO CLI ##
 ##################
 
-if args.piphisto:
+if args.piphisto or args.version or args.egg:
     version = False
     egg = False
     if args.version:
@@ -133,4 +152,28 @@ if args.piphisto:
     if args.egg:
         egg = True
     ph = PipHisto(em.freezeList(envs=find_env))
-    ph.print_pip_histo(version=version, egg=egg)
+    table = {'head': ['App', 'Installations'], 'body': ph.pip_histo(version=version,egg=egg)}
+    if args.style:
+        pptable(table)
+    else:
+        ph.print_pip_histo(version=version, egg=egg)
+
+
+## DIFF ##
+
+if args.diff or args.notinstalled or args.versiondiff:
+    notinstalled = False
+    versiondiff = False
+    if args.notinstalled:
+        notinstalled = True
+    if args.versiondiff:
+        versiondiff = True
+    diff = em.pipDiff(notinstalled=notinstalled, versiondiff=versiondiff)
+    pptable(diff)
+
+
+
+
+
+
+

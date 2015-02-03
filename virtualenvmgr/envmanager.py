@@ -85,18 +85,6 @@ class EnvManager():
             except:
                 print('%s error, install function' % (n))
 
-    """
-    def up(self, current, up):
-
-        for n in self.finder(current):
-            try:
-                print 'is updating %s' % (n)
-                n.install(up)
-                print 'is done'
-            except:
-                print '%s may have been moved, up function' % (n)
-    """
-
     def uninstall(self, app_uninstall, envs=False, pipoption=[]):
         env_list = self.envs
         if envs:
@@ -109,3 +97,78 @@ class EnvManager():
                 print('done with: %s' % (n))
             except:
                 print('%s error, uninstall function' % (n))
+
+    def pipDiff(self, notinstalled=False, versiondiff=False):
+        
+        # app_list and path_list --> table grid
+        app_list = []
+        path_list = []
+
+        # create diff_dic : dictionary with all apps for every env inside
+        diff_dic = {}
+
+        for env in self.envs:
+            diff_dic[env.path] = {}
+            path_list.append(env.path)
+
+            for app in env.pip_freeze:
+                app = app.split('==')
+                diff_dic[env.path][app[0]] = app[1]
+
+        path_list.sort()
+
+
+        for paths in diff_dic.values():
+            for app in paths.keys():
+                if app not in app_list:
+                    app_list.append(app)
+
+        app_list.sort()
+
+        head = ['apps \\ envs'] + path_list 
+        # every row displays a app : its mached to all envs
+        rows = []
+
+        for app in app_list:
+            row = [app]
+            for path in path_list:
+                row.append(diff_dic[path].get(app ,'Not installed'))
+            rows.append(row)
+
+        head.append('List differences')
+
+        # check the differences of the installed apps
+        diff = []
+
+        for row in rows:
+            vers = row[1:]
+            vers.sort()
+            if vers[0] == vers[-1]:
+                diff.append('')
+            else:
+                diff.append('{} - {}'.format(vers[0],vers[-1]))
+
+        for index, row in enumerate(rows):
+            row.append(diff[index])
+
+        # fill the last column of the table with the differences
+        body = []
+        if notinstalled and versiondiff:
+            for row in rows:
+                if 'Not installed' in row[-1] or row[-1] is not '':
+                    body.append(row)
+        elif notinstalled:
+            for row in rows:
+                if 'Not installed' in row[-1]:
+                    body.append(row)
+        elif versiondiff:
+            for row in rows:
+                if row[-1] is not '' and 'Not installed' not in row[-1]:
+                    body.append(row)
+        else:
+            body = rows
+
+        return {'head':head,'body':body}
+
+
+
