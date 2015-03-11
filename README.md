@@ -11,6 +11,19 @@ Use a file with paths to the root of multiple virtualenvs to perform operations 
 * Find/list virtualenvs for further processing, eg. as input for virtualenv-mgr
 * Find all envs having a package installed
 
+## Table of contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Find environments](#find-environments-with--z--envfreeze)
+  * [Define environments](#define-environments)
+  * [Actions](#actions)
+    * [pip-options](#pip-option)
+  * [Diff](#env-diff)
+  * [pip-histo](#pip-histo)
+* [Help](#help)
+* [supported-platforms](#supported-platforms)
+
 
 ## Installation 
 
@@ -94,6 +107,8 @@ Combine (-an , -dna)
 
     virtualenv-mgr compare-envs.txt -na
 
+*Neglects eggs*
+
 
 ### Pip Histo
 
@@ -139,7 +154,7 @@ Pip Histo
 *  `-v, --version`        pip histogram takes versions into consideration
 
  
-# Supported platforms 
+## Supported platforms 
 
 * OS X
 * Linux/UNIX
