@@ -112,8 +112,10 @@ class EnvManager():
             path_list.append(env.path)
 
             for app in env.pip_freeze:
-                app = app.split('==')
-                diff_dic[env.path][app[0]] = app[1]
+                # only index packages with version number --> no eggs
+                if '==' in app:
+                    app = app.split('==')
+                    diff_dic[env.path][app[0]] = app[1]
 
         path_list.sort()
 
