@@ -27,9 +27,9 @@ class EnvManager():
         env_paths = []
         if file_name:
             f = open(file_name, 'r')
-            env_paths = f.read().split(linesep)
+            env_paths += f.read().split(linesep)
         if env_list:
-            env_paths = env_list
+            env_paths += env_list
         for n in env_paths:
             if n is not '' and '#' not in n:
                 ve = VirtualEnvironment(n)

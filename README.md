@@ -58,6 +58,10 @@ Or input over a pipe:
 
     virtualenv-mgr --envfreeze | virtualenv-mgr
 
+Manualy define environments, use "," to seperate the paths (-m, --multiple)
+
+    virtualenv-mgr -m=/absolute/path,relative/path/,../../env
+
 No arguments --> active virtualenv
 
     virtualenv-mgr
@@ -134,6 +138,7 @@ Combine (-ve, -pve)
 Envfreeze:
 *  `-z, --envfreeze`      prints all the envs on .
 *  `-s SEARCHROOT, --searchroot SEARCHROOT` path for envfreeze, where to search
+*  `-m MULTIPLE, --multiple MULTIPLE`  Add paths to envs, sepereate with ","
 
 Actions
 *  `-f FIND, --find FIND`  find app, use commas to search for more
@@ -160,4 +165,3 @@ Pip Histo
 * Linux/UNIX
 
 Windows support was not tested yet.  Please feel free to contribute.
- 

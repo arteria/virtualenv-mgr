@@ -25,6 +25,9 @@ parser.add_argument('-z', '--envfreeze', action='store_true',
                     help='prints all the envs on .')
 parser.add_argument('-s', '--searchroot', type=str,
                     help='path for envfreeze, where to search')
+parser.add_argument('-m', '--multiple', type=str,
+                    help='Add paths to envs, sepereate with ","')
+
 
 ## ENVMANAGER ##
 parser.add_argument('-f', '--find', type=str,
@@ -91,24 +94,28 @@ if args.envfreeze:
 ## Set ENVS ##
 ##############
 
+env_list = []
+file_name = None
+
 if args.environment:
-    env_list = file_name = None
     # python p.py -p "`python p.py --envfreeze`"
     if '\n' in args.environment:
-        env_list = [n.replace('/bin/activate', '') for n in args.environment.split(linesep)]
+        env_list += [n.replace('/bin/activate', '') for n in args.environment.split(linesep)]
     else:
         file_name = args.environment
-    em = EnvManager(file_name=file_name, env_list=env_list)
-elif not sys.stdin.isatty():
-    env_list = []
+if args.multiple:
+    env_list += args.multiple.split(',')
+if not sys.stdin.isatty():
     for n in sys.stdin:
         env_list.append(n.replace(linesep, ''))
-    em = EnvManager(env_list=env_list)
+if env_list or file_name:
+    em = EnvManager(file_name=file_name, env_list=env_list)
 else:
     if os.environ.get('VIRTUAL_ENV'):
         em = EnvManager(env_list=[os.environ['VIRTUAL_ENV']])
     else:
         print('no active virtualenv and no --environment input, no pipe input')
+        print('you need to specify the virtualenvs you want to work with before you can use this tool')
         quit()
 
 
